@@ -177,7 +177,7 @@
                 </div>
               </div>
 
-            <div class="col-lg-4 mb-3">
+            <div class="col-lg-5 mb-4">
 
               <!-- Eredeti cimkék -->
               <div class="card shadow mb-4">
@@ -189,8 +189,8 @@
                 </div>
                 <div class="card-body">
                   <div class="row">
-                    <p class="col-6">Eredeti címkék (egyéb) fghjkvb ghjd</p>
-                    <p  class="col-6">Ajánlott címkék (egyéb) pohhisgb jjcbakh</p>                    
+                    <div id="eredeti_cimke" class="col-6"> </div>
+                    <div id="ajanlott_cimke" class="col-6"> </div>                    
                   </div>
                 </div>
               </div>
@@ -205,8 +205,8 @@
                 </div>
                 <div class="card-body">
                   <div class="row">
-                    <p class="col-6">Eredeti címkék (egyéb) fghjkvb ghjd</p>
-                    <p  class="col-6">Ajánlott címkék (egyéb) pohhisgb jjcbakh</p>                    
+                    <div id="eredeti_egyeb" class="col-6"> </div>
+                    <div id="ajanlott_egyeb"  class="col-6"> </div>                    
                   </div>
                 </div>
                 </div>
@@ -406,9 +406,7 @@
       
         read(data, article,function cimek(){
         for (let i = 0; i < pageLast; i++) {  
-        var node = document.createElement("P");      
-        console.log(article[i]);
-        console.log(article[i].Cím);
+        var node = document.createElement("P");
        var textnode = document.createTextNode(article[i].Cím);        
         node.appendChild(textnode);  
         var temp = i+1;  
@@ -422,10 +420,7 @@
     function showArticle(selectObject){
         var selected = selectObject;
         var id=1;
-        for (let i = 0; i < article.length; i++) {  
-          console.log(selected.trim());  
-          
-          console.log(article[i].Cím.trim());   
+        for (let i = 0; i < article.length; i++) {     
           if(selected.trim() === article[i].Cím.trim()){          
             id = i;
             
@@ -437,12 +432,89 @@
             var textNode = document.createTextNode(article[id].Cikk_szövege);
             p.appendChild(textNode);
             cikk.appendChild(p);
+            labels(id);
             return;
           }          
-        }
-       
-
+        }      
       }
+
+
+
+      //Címkék kezelése
+      function labels(id){
+            var eredeti =  document.getElementById("eredeti_cimke");
+            eredeti.removeChild(eredeti.childNodes[0]);
+            var pEredeti = document.createElement("P");  
+            var eredetiParts = article[id].Eredeti_címékék.split("geography__") 
+            var eredetiFirtsPArt = eredetiParts[0];             
+            var textNode = document.createTextNode(eredetiFirtsPArt.replaceAll("__label__","").replace(" ","").replaceAll(" ",", ").replaceAll("@@"," "));
+            pEredeti.appendChild(textNode);
+            eredeti.appendChild(pEredeti);
+
+            var ajanlott =  document.getElementById("ajanlott_cimke");
+            ajanlott.removeChild(ajanlott.childNodes[0]);
+            var pAjanlott = document.createElement("P");    
+            var ajanlottCimkek =valogatAjanlott(zarojelezes(article[id].Ajánlott_speciális_címkék.replaceAll("__label__","")));
+           if(typeof article[id].Ajánlott_címkék !== 'undefined'){            
+            var textNode = document.createTextNode(zarojelezes(article[id].Ajánlott_címkék).toString().replaceAll("__","").replaceAll("@@"," ") + ajanlottCimkek.toString().replaceAll(",", ", "));
+           }   
+           else{
+            var textNode = document.createTextNode(ajanlottCimkek.toString().replaceAll(",", ", "));
+           }    
+           
+            pAjanlott.appendChild(textNode);
+            ajanlott.appendChild(pAjanlott);
+
+            var ajanlottEgyeb =  document.getElementById("ajanlott_egyeb");
+            ajanlottEgyeb.removeChild(ajanlottEgyeb.childNodes[0]);
+            var pAjanlottEgyeb = document.createElement("P");       
+            var myString =article[id].Ajánlott_speciális_címkék.replaceAll("__label__","");
+            var textNode = document.createTextNode(valogatEgyeb(zarojelezes(myString)).toString().replaceAll(",", ", ").replaceAll("@@"," "));
+            pAjanlottEgyeb.appendChild(textNode);
+            ajanlottEgyeb.appendChild(pAjanlottEgyeb);
+           
+            var eredetiEgyeb =  document.getElementById("eredeti_egyeb");
+            eredetiEgyeb.removeChild(eredetiEgyeb.childNodes[0]);
+            var pEredetiEgyeb = document.createElement("P");             
+            var eredetiSecondPart = eredetiParts[1];             
+            var textNode = document.createTextNode("geography__"+eredetiSecondPart.replaceAll(" ",", ").replaceAll("@@"," "));
+            pEredetiEgyeb.appendChild(textNode);
+            eredetiEgyeb.appendChild(pEredetiEgyeb);
+      }
+
+      function zarojelezes(myString){
+       var tomb = myString.split(" ");
+       var cimkek=[];
+       for (let i = 1; i < tomb.length-3; i=i+2) {
+         var szam = " (" + tomb[i+1] + ")";
+         var label =tomb[i]+szam;
+         cimkek.push(label);         
+       }
+       return cimkek;
+      }
+
+     
+      function valogatEgyeb(tomb){
+        var ajanlottEgyebCimkek=[];
+        for(let i = 0; i < tomb.length; i++){
+          if(tomb[i].includes( "geography__") || tomb[i].includes("organization__") || tomb[i].includes("person__")){
+            ajanlottEgyebCimkek.push(tomb[i]);
+          }
+        }
+        return ajanlottEgyebCimkek;
+      }
+
+      function valogatAjanlott(tomb){
+        var ajanlottCimkek=[];
+        for(let i = 0; i < tomb.length; i++){
+          if(!(tomb[i].includes( "geography__") || tomb[i].includes("organization__") || tomb[i].includes("person__"))){
+            ajanlottCimkek.push(tomb[i].replaceAll("@@", " "));
+          }
+        }
+        return ajanlottCimkek;
+      }
+
+
 
     </script>
 
