@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin 2 - Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Modellek</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Hetilap</span></a>
+      </li>
+      
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Online</span></a>
+      </li>
+      
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Hetilap+Online</span></a>
+        </li>
+        
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+      
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Demó</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Cimkéző</span></a>
+      </li>     
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Tanító</span></a>
+      </li>
+
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+       
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cimkeajánló-HETILAP</h1>
+          </div>
+
+          <div class="row">
+        <!-- Keresés -->              
+            <select class="browser-default custom-select col-xl-8 shadow mySelect" onchange=showArticle(this.value) id="select-state" placeholder="Keresés">
+              <option value="" disabled selected>Keresés...</option>
+              <option id="op1"></option>
+              <option id="op2"></option>
+              <option id="op3"></option>
+              <option id="op4"></option>
+              <option id="op5"></option>
+              <option id="op6"></option>
+              <option id="op7"></option>
+              <option id="op8"></option>
+              <option id="op9"></option>
+              <option id="op10"></option>
+              <option id="op11"></option>
+              <option id="op12"></option>
+              <option id="op13"></option>
+              <option id="op14"></option>
+              <option id="op15"></option>
+              <option id="op16"></option>
+              <option id="op17"></option>
+              <option id="op18"></option>
+              <option id="op19"></option>
+              <option id="op20"></option>
+            </select>
+
+            <div class="col-xl-3">
+              <button class="btn btn-light btn-outline-dark" type="button" onclick=buttonFirst()><<</button>
+              <button class="btn btn-light btn-outline-dark" type="button" onclick=buttonOneBack()><</button>
+              <button class="btn btn-light btn-outline-dark" type="button" onclick=buttonOneForward()>></button>
+              <button class="btn btn-light btn-outline-dark" type="button" onclick=buttonLast()>>></button>
+            </div>
+            
+
+          <!--End of row-->
+          </div>
+        
+          <div id="valoszinuseg">
+            Valószínűség:<h6 id="myRangeValue">0.5</h6>
+          </div>
+          <input type="range" class="custom-range col-xl-9" min="0" max="1" step="0.1" onchange="getRangeValue(this.value)"  value="0.5" id="myRange">
+          
+         
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- A cikk -->
+            <div class="col-xl-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Cikk szövege</h6>                
+                </div>
+                <!-- Card Body -->
+                <div id="cikk_szovege" class="article-body">
+                 
+                </div>
+                </div>
+              </div>
+
+            <div class="col-lg-4 mb-3">
+
+              <!-- Eredeti cimkék -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <div class="row">
+                    <h6 class="m-0 font-weight-bold text-primary col-6">Eredeti címkék</h6>
+                    <h6 class="m-0 font-weight-bold text-primary col-6">Ajánlott címkék</h6>                    
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <p class="col-6">Eredeti címkék (egyéb) fghjkvb ghjd</p>
+                    <p  class="col-6">Ajánlott címkék (egyéb) pohhisgb jjcbakh</p>                    
+                  </div>
+                </div>
+              </div>
+
+              <!-- Eredeti cimkék(Egyéb) -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <div class="row">
+                    <h6 class="m-0 font-weight-bold text-primary col-6">Eredeti címkék (egyéb)</h6>
+                    <h6 class="m-0 font-weight-bold text-primary col-6">Ajánlott címkék (egyéb)</h6>                    
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <p class="col-6">Eredeti címkék (egyéb) fghjkvb ghjd</p>
+                    <p  class="col-6">Ajánlott címkék (egyéb) pohhisgb jjcbakh</p>                    
+                  </div>
+                </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+     
+
+         <!-- Content Row -->
+          <div class="row">
+
+              <!-- Hetilap Card -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Hetilap</div>
+                        <div class="mb-0 text-gray-800">
+                          cikk: <b>110 ezer</b></br>
+                          cimke: <b>1023 db</b></br>
+                          token: <b>73 millió</b></br>
+                          type: <b>62 ezer</b>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            <!-- Hetilap+ Card -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Hetilap+</div>
+                        <div class="mb-0 text-gray-800">
+                          cikk: <b>110 ezer</b></br>
+                          cimke: <b>26901 db</b></br>
+                          token: <b>73 millió</b></br>
+                          type: <b>36 ezer</b>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+               <!-- Online Card -->
+               <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Online</div>
+                        <div class="mb-0 text-gray-800">
+                          cikk: <b>80 ezer</b></br>
+                          cimke: <b>76654 db</b></br>
+                          token: <b>35 millió</b></br>
+                          type: <b>33 ezer</b>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Hetilap+Online Card  -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Hetilap+Online</div>
+                        <div class="mb-0 text-gray-800">
+                          cikk: <b>195 ezer</b></br>
+                          cimke: <b>104432 db</b></br>
+                          token: <b>112 millió</b></br>
+                          type: <b>38 ezer</b>
+                        </div>
+                      </div>                         
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          <!-- Footer -->
+          <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Projekt 2020</span>
+              </div>
+            </div>
+          </footer>
+          <!-- End of Footer -->
+
+         <!-- End of Page Content -->
+        </div>
+     
+
+          <!--End of Main Content-->
+         </div>
+
+      <!-- End of Content Wrapper -->
+      </div>
+
+
+  
+      <!--Valószínűség kiirítása-->
+      <script>
+        function getRangeValue(value){
+          var rangeValue =value;            
+          var element = document.getElementById("valoszinuseg");   
+          var myRangeValue = document.getElementById("myRangeValue");              
+          myRangeValue.innerText = rangeValue;              
+          element.appendChild(myRangeValue);  
+        }
+      </script>
+
+      <script src="./js/fajlFeldolgozas.js"></script>
+      
+      
+      <script> 
+      //Címek kezelése  
+      function buttonFirst(){
+        pageLast = 20;
+        pageFirst = pageLast -20;
+          cimek();
+      }
+
+      function buttonOneBack(){
+          if(pageLast == 20){
+            pageLast = article.length - 20;
+            pageFirst = pageLast -20;
+          }
+          else{
+            pageLast= pageLast-20;
+            pageFirst = pageLast -20;
+          }
+          cimek();
+      }
+
+      function buttonOneForward(){
+          if(pageLast == article.length-20){
+            pageLast = 20;
+            pageFirst = pageLast -20;
+          }
+          else{
+            pageLast = pageLast + 20;
+            pageFirst = pageLast -20;
+          }
+          cimek();
+      }
+
+      function buttonLast(){
+          pageLast = article.length-20;
+          pageFirst = pageLast -20;
+          cimek();
+      }
+      
+
+      var pageLast = 20;
+      var pageFirst = 0;
+
+      function cimek(){
+        var temp = 1;
+        for (let i = pageFirst; i < pageLast; i++) {  
+        var id = "op"+temp;                            
+        var op = document.getElementById(id);
+        op.removeChild(op.childNodes[0]);
+        var node = document.createElement("P");   
+       var textnode = document.createTextNode(article[i].Cím);        
+        node.appendChild(textnode);                            
+       document.getElementById(id).appendChild(node);   
+       temp++;       
+      }
+    }
+      
+        read(data, article,function cimek(){
+        for (let i = 0; i < pageLast; i++) {  
+        var node = document.createElement("P");      
+        console.log(article[i]);
+        console.log(article[i].Cím);
+       var textnode = document.createTextNode(article[i].Cím);        
+        node.appendChild(textnode);  
+        var temp = i+1;  
+        var id = "op"+temp;                            
+       document.getElementById(id).appendChild(node);      
+      }
+    });
+
+
+    //Cikk szövegének megjelenítése
+    function showArticle(selectObject){
+        var selected = selectObject;
+        var id=1;
+        for (let i = 0; i < article.length; i++) {  
+          console.log(selected.trim());  
+          
+          console.log(article[i].Cím.trim());   
+          if(selected.trim() === article[i].Cím.trim()){          
+            id = i;
+            
+            var cikk =  document.getElementById("cikk_szovege");
+            cikk.removeChild(cikk.childNodes[0]);
+
+            var p = document.createElement("P");
+            
+            var textNode = document.createTextNode(article[id].Cikk_szövege);
+            p.appendChild(textNode);
+            cikk.appendChild(p);
+            return;
+          }          
+        }
+       
+
+      }
+
+    </script>
+
+ 
+    
+      
+      
+
+    
+
+ 
+
+</body>
+
+</html>
